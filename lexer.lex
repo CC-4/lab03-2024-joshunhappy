@@ -17,6 +17,23 @@
         | (E)
         | number
 
+    S ::= E;
+    E ::= F G
+    G ::= + F G
+        | - F G
+        | ε
+    F ::= F H
+    H ::= * F H
+        | / F H
+        | % F H
+        | ε
+    F ::= I C
+    C ::= ^ F
+        | ε
+    I ::= (E)
+        | - I
+        | number
+
     **** Cosas Importantes ****:
 
     1. Lo que está en minúscula son terminales
@@ -88,9 +105,14 @@ PLUS = "+"
 MINUS = "-"
 MULT = "*"
 DIV = "/"
+MOD = "%"
+POW = "^"
 LPAREN = "("
 RPAREN = ")"
-DIGITOS = [0-9]
+SIGN = [+-]
+DIGITS = [0-9]
+DECIMALPOINT = "."
+NUMBER = {DIGITOS}+({PUNTO}{DIGITOS}*)?(({EXPONENTE}{SIGNO}?{DIGITOS}+)?)?
 WHITE = (" "|\t|\n)
 
 %%
@@ -100,6 +122,8 @@ WHITE = (" "|\t|\n)
 <YYINITIAL>{MINUS}      { return new Token(Token.MINUS); }
 <YYINITIAL>{MULT}       { return new Token(Token.MULT); }
 <YYINITIAL>{DIV}        { return new Token(Token.DIV); }
+<YYINITIAL>{MOD}        { return new Token(Token.MOD); }
+<YYINITIAL>{POW}        { return new Token(Token.POW); }
 <YYINITIAL>{LPAREN}     { return new Token(Token.LPAREN); }
 <YYINITIAL>{RPAREN}     { return new Token(Token.RPAREN); }
 <YYINITIAL>{WHITE}      { /* NO HACER NADA */             }

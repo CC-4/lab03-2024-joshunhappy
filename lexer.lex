@@ -82,14 +82,27 @@ import java.io.IOException;
 %function nextToken
 %type Token
 
-SEMI = ";" // Definan aqui sus Tokens/ER por ejemplo: "el token SEMI"
+SEMI = ";"
+SEMI = ""
+PLUS = "+"
+MINUS = "-"
+MULT = "*"
+DIV = "/"
+LPAREN = "("
+RPAREN = ")"
+DIGITOS = [0-9]
 WHITE = (" "|\t|\n)
 
 %%
 
-<YYINITIAL>{SEMI}   { return new Token(Token.SEMI);   }
+<YYINITIAL>{SEMI}       { return new Token(Token.SEMI);   }
+<YYINITIAL>{PLUS}       { return new Token(Token.PLUS); }
+<YYINITIAL>{MINUS}      { return new Token(Token.MINUS); }
+<YYINITIAL>{MULT}       { return new Token(Token.MULT); }
+<YYINITIAL>{DIV}        { return new Token(Token.DIV); }
+<YYINITIAL>{LPAREN}     { return new Token(Token.LPAREN); }
+<YYINITIAL>{RPAREN}     { return new Token(Token.RPAREN); }
+<YYINITIAL>{WHITE}      { /* NO HACER NADA */             }
 
-<YYINITIAL>{WHITE}  { /* NO HACER NADA */             }
-
-<YYINITIAL>.        { return new Token(Token.ERROR);
+<YYINITIAL>.            { return new Token(Token.ERROR);
                       /* todo lo demas es ERROR */ }

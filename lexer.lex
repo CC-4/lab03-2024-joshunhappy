@@ -100,7 +100,6 @@ import java.io.IOException;
 %type Token
 
 SEMI = ";"
-SEMI = ""
 PLUS = "+"
 MINUS = "-"
 MULT = "*"
@@ -123,9 +122,10 @@ WHITE = (" "|\t|\n)
 <YYINITIAL>{MULT}       { return new Token(Token.MULT); }
 <YYINITIAL>{DIV}        { return new Token(Token.DIV); }
 <YYINITIAL>{MOD}        { return new Token(Token.MOD); }
-<YYINITIAL>{POW}        { return new Token(Token.POW); }
+<YYINITIAL>{POW}        { return new Token(Token.EXP); }
 <YYINITIAL>{LPAREN}     { return new Token(Token.LPAREN); }
 <YYINITIAL>{RPAREN}     { return new Token(Token.RPAREN); }
+<YYINITIAL>{NUMBER}     { return new Token(Token.NUMBER, yytext()); }
 <YYINITIAL>{WHITE}      { /* NO HACER NADA */             }
 
 <YYINITIAL>.            { return new Token(Token.ERROR);

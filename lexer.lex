@@ -27,12 +27,33 @@
         | / F H
         | % F H
         | ε
-    F ::= I C
-    C ::= ^ F
+    F ::= J I
+    I ::= ^ F
         | ε
-    I ::= (E)
-        | - I
+    J ::= (E)
+        | - J
         | number
+
+
+    ------------------------
+
+    S ::= A;
+    A ::= C B
+    B ::= C + B
+        | C - B
+        | 
+    C ::= E D
+    D ::= E * D
+        | E / D
+        | E % D
+        | 
+    E ::= G F
+    F ::= E ^
+        | 
+    G ::= (A)
+        | G ~
+        | N
+    N ::= number
 
     **** Cosas Importantes ****:
 

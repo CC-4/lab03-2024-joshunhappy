@@ -113,17 +113,42 @@ public class Parser {
 
         /* TODO: Su codigo aqui */
 
+        // Pop b first to preserver entry order
+        double b = this.operandos.pop();
+        double a = this.operandos.pop();
+
         /* El codigo de esta seccion se explicara en clase */
 
+        System.out.println(op.getId() + ": " + a + op + b);
+
+        switch (op.getId()) {
+            case Token.PLUS:
+                operandos.push(a + b);
+                break;
+            case Token.MINUS:
+                operandos.push(a - b);
+                break;
+            case Token.MULT:
+                operandos.push(a * b);
+                break;
+            case Token.DIV:
+                operandos.push(a / b);
+                break;
+            case Token.MOD:
+                operandos.push(a % b);
+                break;
+            case Token.EXP:
+                operandos.push(Math.pow(a, b));
+                break;
+            default:
+                throw new IllegalArgumentException("Uknonw operator: " + op);
+        }
+
         if (op.equals(Token.PLUS)) {
-            double a = this.operandos.pop();
-            double b = this.operandos.pop();
             // print para debug, quitarlo al terminar
             System.out.println("suma " + a + " + " + b);
             this.operandos.push(a + b);
         } else if (op.equals(Token.MULT)) {
-            double a = this.operandos.pop();
-            double b = this.operandos.pop();
             // print para debug, quitarlo al terminar
             System.out.println("mult " + a + " * " + b);
             this.operandos.push(a * b);

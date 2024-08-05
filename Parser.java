@@ -35,6 +35,10 @@ public class Parser {
         // Imprime el resultado de operar el input
         System.out.println("Resultado: " + this.operandos.peek());
 
+        while (!operadores.empty()) {
+            popOp();
+        }
+
         // Verifica si terminamos de consumir el input
         if (this.next != this.tokens.size()) {
             return false;
@@ -67,6 +71,18 @@ public class Parser {
                 // Lo guardamos en el stack de operadores
                 // Que pushOp haga el trabajo, no quiero hacerlo yo aqui
                 pushOp(curentToken);
+            } else if (id == Token.LPAREN) {
+                operadores.push(curentToken);
+            } else if (id == Token.RPAREN) {
+                while (!operadores.empty() && operadores.peek().getId() != Token.LPAREN) {
+                    popOp();
+                }
+
+                if (!operadores.empty() && operadores.peek().getId() == Token.LPAREN) {
+                    operadores.pop();
+                } else {
+                    throw new IllegalArgumentException("Missing parenthesis");
+                }
             }
 
             // Next line for debuggin

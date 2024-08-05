@@ -95,9 +95,14 @@ public class Parser {
 
         switch (op.getId()) {
             case Token.PLUS:
+            case Token.MINUS:
                 return 1;
             case Token.MULT:
+            case Token.DIV:
+            case Token.MOD:
                 return 2;
+            case Token.EXP:
+                return 3;
             default:
                 return -1;
         }

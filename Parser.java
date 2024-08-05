@@ -160,8 +160,6 @@ public class Parser {
 
         /* Casi todo el codigo para esta seccion se vera en clase */
 
-        // Si no hay operandos automaticamente ingresamos op al stack
-
         // Si si hay operandos:
         // Obtenemos la precedencia de op
         // Obtenemos la precedencia de quien ya estaba en el stack
@@ -170,6 +168,12 @@ public class Parser {
         // precedencia
         // Al terminar operaciones pendientes, guardamos op en stack
 
+        while (!operadores.empty() && pre(operadores.peek()) >= pre(op)) {
+            popOp();
+        }
+
+        // Si no hay operandos automaticamente ingresamos op al stack
+        operadores.push(op);
     }
 
     private boolean S() {

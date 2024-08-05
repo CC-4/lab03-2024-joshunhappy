@@ -69,9 +69,21 @@ public class Parser {
              * }
              */
 
+            // Next line for debuggin
+            // System.out.println("Token: " + this.tokens.get(this.next) + ", Expected ID: "
+            // + id);
+
             this.next++;
+
             return true;
         }
+
+        // Next line for debuggin
+        // System.out
+        // .println(
+        // "Token unsuccesful, Expecte ID: " + id + ", Found ID: " +
+        // this.tokens.get(this.next).getId());
+
         return false;
     }
 
@@ -131,20 +143,44 @@ public class Parser {
     }
 
     private boolean S() {
+        // Next line for debuggin
+        // System.out.println("S() - next: " + this.next);
+
         return A() && term(Token.SEMI);
     }
 
-    /* TODO: sus otras funciones aqui */
-
     private boolean A() {
+        // Next line for debuggin
+        // System.out.println("A() - next: " + this.next);
+
         return A1();
     }
 
     private boolean A1() {
+        // Next line for debuggin
+        // System.out.println("A1() - next: " + this.next);
+
         return C() && B();
     }
 
+    private boolean C() {
+        // Next line for debuggin
+        // System.out.println("C() - next: " + this.next);
+
+        return C1();
+    }
+
+    private boolean C1() {
+        // Next line for debuggin
+        // System.out.println("C1() - next: " + this.next);
+
+        return E() && D();
+    }
+
     private boolean B() {
+        // Next line for debuggin
+        // System.out.println("B() - next: " + this.next);
+
         int save = next;
 
         if (B1()) {
@@ -159,26 +195,27 @@ public class Parser {
 
         this.next = save;
 
-        return false;
+        return true;
     }
 
     private boolean B1() {
-        return term(Token.PLUS) && C() && A();
+        // Next line for debuggin
+        // System.out.println("B1() - next: " + this.next);
+
+        return term(Token.PLUS) && C() && B();
     }
 
     private boolean B2() {
-        return term(Token.MINUS) && C() && A();
-    }
+        // Next line for debuggin
+        // System.out.println("B2() - next: " + this.next);
 
-    private boolean C() {
-        return C1();
-    }
-
-    private boolean C1() {
-        return E() && D();
+        return term(Token.MINUS) && C() && B();
     }
 
     private boolean D() {
+        // Next line for debuggin
+        // System.out.println("D() - next: " + this.next);
+
         int save = next;
 
         if (D1()) {
@@ -199,46 +236,70 @@ public class Parser {
 
         this.next = save;
 
-        return false;
+        return true; // B puede ser vacío
     }
 
     private boolean D1() {
+        // Next line for debuggin
+        // System.out.println("D1() - next: " + this.next);
+
         return term(Token.MULT) && E() && D();
     }
 
     private boolean D2() {
+        // Next line for debuggin
+        // System.out.println("D2() - next: " + this.next);
+
         return term(Token.DIV) && E() && D();
     }
 
     private boolean D3() {
+        // Next line for debuggin
+        // System.out.println("D3() - next: " + this.next);
+
         return term(Token.MOD) && E() && D();
     }
 
     private boolean E() {
+        // Next line for debuggin
+        // System.out.println("E() - next: " + this.next);
+
         return E1();
     }
 
     private boolean E1() {
+        // Next line for debuggin
+        // System.out.println("E1() - next: " + this.next);
+
         return G() && F();
     }
 
     private boolean F() {
-        return F1();
-    }
+        // Next line for debuggin
+        // System.out.println("F() - next: " + this.next);
 
-    private boolean F1() {
         int save = next;
 
-        if (term(Token.EXP) && E()) {
+        if (F1()) {
             return true;
         }
 
         this.next = save;
 
-        return false;
+        return true;
+    }
+
+    private boolean F1() {
+        // Next line for debuggin
+        // System.out.println("F1() - next: " + this.next);
+
+        return term(Token.EXP) && E();
     }
 
     private boolean G() {
+        // Next line for debuggin
+        // System.out.println("G() - next: " + this.next);
+
         int save = next;
 
         if (G1()) {
@@ -253,32 +314,27 @@ public class Parser {
 
         this.next = save;
 
-        if (G3()) {
-            return true;
-        }
-
-        this.next = save;
-
-        return false;
+        return G3();
     }
 
     private boolean G1() {
+        // Next line for debuggin
+        // System.out.println("G1() - next: " + this.next);
+
         return term(Token.LPAREN) && A() && term(Token.RPAREN);
     }
 
     private boolean G2() {
-        int save = next;
+        // Next line for debuggin
+        // System.out.println("G2() - next: " + this.next);
 
-        if (term(Token.UNARY) && G()) {
-            return true;
-        }
-
-        this.next = save;
-
-        return false;
+        return term(Token.UNARY) && G();
     }
 
     private boolean G3() {
+        // Next line for debuggin
+        // System.out.println("G3() - next: " + this.next);
+
         return N();
     }
 

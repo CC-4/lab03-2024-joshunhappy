@@ -33,7 +33,7 @@ public class Parser {
 
         // Shunting Yard Algorithm
         // Imprime el resultado de operar el input
-        // System.out.println("Resultado: " + this.operandos.peek());
+        System.out.println("Resultado: " + this.operandos.peek());
 
         // Verifica si terminamos de consumir el input
         if (this.next != this.tokens.size()) {
@@ -151,16 +151,6 @@ public class Parser {
                 break;
             default:
                 throw new IllegalArgumentException("Uknonw operator: " + op);
-        }
-
-        if (op.equals(Token.PLUS)) {
-            // print para debug, quitarlo al terminar
-            System.out.println("suma " + a + " + " + b);
-            this.operandos.push(a + b);
-        } else if (op.equals(Token.MULT)) {
-            // print para debug, quitarlo al terminar
-            System.out.println("mult " + a + " * " + b);
-            this.operandos.push(a * b);
         }
     }
 
